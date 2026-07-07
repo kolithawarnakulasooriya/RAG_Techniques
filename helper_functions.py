@@ -359,7 +359,7 @@ def get_langchain_embedding_provider(provider: EmbeddingProvider, model_id: str 
         from langchain_openai import OpenAIEmbeddings
         return OpenAIEmbeddings(
             model=model_id, 
-            api_key=api_key, 
+            openai_api_key=api_key, 
             openai_api_base='https://openrouter.ai/api/v1'
         )
     elif provider == EmbeddingProvider.COHERE:
