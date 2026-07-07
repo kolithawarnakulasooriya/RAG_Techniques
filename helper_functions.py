@@ -338,7 +338,7 @@ class ModelProvider(Enum):
     OPEN_ROUTER = "openrouter"
 
 
-def get_langchain_embedding_provider(provider: EmbeddingProvider, model_id: str = None):
+def get_langchain_embedding_provider(provider: EmbeddingProvider, model_id: str = None, api_key: str = None):
     """
     Returns an embedding provider based on the specified provider and model ID.
 
@@ -359,6 +359,8 @@ def get_langchain_embedding_provider(provider: EmbeddingProvider, model_id: str 
         from langchain_openai import OpenAIEmbeddings
         return OpenAIEmbeddings(
             model=model_id, 
+            api_key=api_key,        
+            base_url="https://openrouter.ai/api/v1",
             check_embedding_ctx_length=False,
             encoding_format="float"
         )
