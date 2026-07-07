@@ -12,6 +12,7 @@ import asyncio
 import random
 import textwrap
 import numpy as np
+import os
 from enum import Enum
 
 
@@ -326,6 +327,7 @@ class EmbeddingProvider(Enum):
     OPENAI = "openai"
     COHERE = "cohere"
     AMAZON_BEDROCK = "bedrock"
+    OPEN_ROUTER = "openrouter"
 
 # Enum class representing different model providers
 class ModelProvider(Enum):
@@ -333,9 +335,10 @@ class ModelProvider(Enum):
     GROQ = "groq"
     ANTHROPIC = "anthropic"
     AMAZON_BEDROCK = "bedrock"
+    OPEN_ROUTER = "openrouter"
 
 
-def get_langchain_embedding_provider(provider: EmbeddingProvider, model_id: str = None):
+def get_langchain_embedding_provider(provider: EmbeddingProvider, model_id: str = None, api_key: str = None):
     """
     Returns an embedding provider based on the specified provider and model ID.
 
@@ -352,6 +355,9 @@ def get_langchain_embedding_provider(provider: EmbeddingProvider, model_id: str 
     if provider == EmbeddingProvider.OPENAI:
         from langchain_openai import OpenAIEmbeddings
         return OpenAIEmbeddings()
+    elif provider == EmbeddingProvider.OPEN_ROUTER:
+        from langchain_openai import OpenAIEmbeddings
+        return OpenAIEmbeddings(model=model_id, openai_api_key=api_key, openai_api_base='https://openrouter.ai')
     elif provider == EmbeddingProvider.COHERE:
         from langchain_cohere import CohereEmbeddings
         return CohereEmbeddings()
